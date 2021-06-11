@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title>Bondzier 🥸</title>
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+      <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+
+         .bd-placeholder-img {
+         font-size: 1.125rem;
+         text-anchor: middle;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         user-select: none;
+         }
+         @media (min-width: 768px) {
+         .bd-placeholder-img-lg {
+         font-size: 3.5rem;
+         }
+         }
+      </style>
+      <link href="/dist/css/dashboard.css" rel="stylesheet">
+   </head>
+   <body>
+      <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Bondzier 🥸</a>
+      </header>
+      <div class="container-fluid">
+         <div class="row">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h1 class="h2">Create</h1>
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                     <div class="btn-group me-2">
+                         <a class="btn btn-sm btn-outline-secondary" href="explore.html">Explore</a>
+                        
+                     </div>
+                     
+                  </div>
+               </div>
+               <div  class="row" >
+                  <div class="col-12" id="p5-canvas-holder" style="text-align: center; width: 70%;"></div>
+               </div>
+               <div class="row">
+                  <div class="col-4">
+                     <div class="mb-3">
+                        <label class="form-label">Total Items</label>
+                        <input type="text" class="form-control" id="itemsinput" value="5000"  onchange="updateItems()">
+                        <div id="emailHelp" class="form-text">Number of items that you plan to sell.</div>
+                     </div>
+                     <div class="mb-3">
+                        <label  class="form-label">Amount</label>
+                        <input type="text" value="1" class="form-control" id="amountinput">
+                        <div id="help1" class="form-text">Amount to be minted per each buy (in wei).</div>
+                     </div>
+                     <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isfungibleinput">
+                        <label class="form-check-label" for="isfungibleinput">Is Non-Fungible?</label>
+                        <div id="help2" class="form-text">If checked, minted item will be non-fungible (unique id for each mint).</div>
+                     </div>
+                     <div class="mb-3">
+                        <input type="text" value="1" class="form-control" id="predictedinput">
+                        <div class="form-text">Predicted Contract Address.</div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="mb-3">
+                        <label class="form-label">Start Price</label>
+                        <input type="text" class="form-control" id="startinput" value="200"  onchange="updateStartPrice()">
+                        <div class="form-text">The curve will start at this price point.</div>
+                     </div>
+                     <div class="mb-3">
+                        <label class="form-label">End Price</label>
+                        <input type="text" class="form-control" id="endinput" value="100"  onchange="updateEndPrice()">
+                        <div class="form-text">The curve will end at this price point.</div>
+                     </div>
+                     <div class="mb-3">
+                        <label  class="form-label">Expiry timestamp</label>
+                        <div style="display: flex;">
+                           <input style="width:70%;"type="text" class="form-control" id="expiryinput" value="" onchange="updateTimestamp()"> <button class="btn  btn-sm btn-secondary" onclick="setTimestamp()">now + 90 days</button>
+                        </div>
+                        <div class="form-text">After this unix timestamp the market will be closed.</div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="mb-3">
+                        <label  class="form-label">Owner address</label>
+                        <input type="text" class="form-control" id="addressinput" value="" aria-describedby="emailHelp" onchange="updateAddress()">
+                        <div class="form-text">Income from the sales will be sent to this address.</div>
+                     </div>
+                     <div class="mb-3">
+                        <label  class="form-label">Salt</label>
+                        <div  style="display: flex;">
+                          <input type="text" style="width: 70%;" class="form-control" id="saltinput" value="loremipsum" aria-describedby="emailHelp" onchange="updateSalt()"><button class="btn  btn-sm btn-secondary" onclick="randomizeSalt()">random(ish)</button>  
+                        </div>
+                        
+                        <div class="form-text">Salt used to call create2, converted to bytes32</div>
+                     </div>
+                     <div class="mb-3">
+                        <label  class="form-label">URI</label>
+                        <input type="text" class="form-control" id="uriinput" value="loremipsum.eth" aria-describedby="emailHelp">
+                        <div class="form-text">URI to be stored</div>
+                     </div>
+                     <div class="mb-3">
+                        <label class="form-label">Data</label>
+                        <input type="text" class="form-control" id="datainput" value="loremipsum" aria-describedby="emailHelp">
+                        <div class="form-text">To be passed as data parameter when minting, converted to bytes</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-12">
+                     <button class="btn btn-primary" id="createButtonr" onclick="createBondzier()" style="width: 100%">Create new Bondzier Market</button>  
+                  </div>
+               </div>
+               <br>
+            </main>
+         </div>
+      </div>
+      <script src="/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/dist/js/ethers-5.2.umd.min.js" type="text/javascript"></script>
+      <script src="/dist/js/p5-1.3.1.js"></script>
+      <script src="/dist/js/feather-icons@4.28.0.min.js"></script>
+      <script src="/dist/js/dashboard.js"></script>
+      <script type="text/javascript">
+        var bondzierabi;
+        var factoryabi;
+        var factory;
+        var erc1155abi
+        var deployer
+        var bondzierFactory
+        var bondzier1155
+        var timestamp2 = Math.round(Date.now() / 1000) + 7776000
+
+        const provider = new ethers.providers.JsonRpcProvider();
+        deployer = new ethers.Wallet('0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0', provider)
+        const factoryaddr = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+        const erc1155addr = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+
+
+        const createButtonr = document.getElementById('createButtonr')
+        const predictedBox = document.getElementById('predictedinput')
+        const expiryBox = document.getElementById('expiryinput')
+        const addressBox = document.getElementById('addressinput')
+        const itemsBox = document.getElementById("itemsinput");
+        const startBox = document.getElementById("startinput");
+        const endBox = document.getElementById("endinput");
+        const dataBox = document.getElementById('datainput')
+
+        const uriBox = document.getElementById('uriinput')
+        
+        const isfungibleBox = document.getElementById('isfungibleinput')
+
+        const amountBox = document.getElementById("amountinput");
+
+        const saltBox = document.getElementById("saltinput") 
+
+
+        predictedBox.disabled = true;
+
+        createButtonr.disabled = true;
+        async function getAbis() {
+            // deployer = await provider.getSigner();
+            console.log(deployer)
+            let bondzierABIreq = await fetch('/artifacts/contracts/Bondzier.sol/Bondzier.json')
+            bondzierabi = (await bondzierABIreq.json()).abi
+
+            let factoryABIreq = await fetch('/artifacts/contracts/BondzierFactory.sol/BondzierFactory.json')
+            factoryabi = (await factoryABIreq.json()).abi
+
+            let erc1155ABIreq = await fetch('/artifacts/contracts/Bondzier1155.sol/Bondzier1155.json')
+            erc1155abi = (await erc1155ABIreq.json()).abi
+            bondzierFactory = new ethers.Contract(factoryaddr, factoryabi, deployer);
+            console.log(bondzierFactory)
+            bondzier1155 = new ethers.Contract(erc1155addr, erc1155abi, provider);
+            console.log(bondzier1155)
+
+            console.log(await bondzierFactory.allContractsLength())
+            console.log(await bondzierFactory.contracts(0))
+            bondzierFactory.on("BondzierCreated", function() {
+                console.log(arguments)
+            })
+
+
+                createButtonr.disabled = false;
+                await randomizeSalt();
+
+        }
+
+
+        getAbis()
+
+
+
+        expiryBox.value = timestamp2
+
+        addressBox.value = deployer.address
+
+
+
+        function updateTimestamp() {
+            timestamp2 = parseInt(expiryBox.value)
+        }
+
+        function setTimestamp() {
+            timestamp2 = Math.round(Date.now() / 1000) + 7776000
+            expiryBox.value = timestamp2
+        }
+
+        function updateItems() {
+            items = parseInt(itemsBox.value);
+
+            if (items > 50) {
+                _n = 50
+            } else {
+                _n = items
+            }
+        }
+
+        async function createBondzier(){
+            //createButtonr.disabled = true;
+
+            let total = ethers.utils.parseUnits(itemsBox.value, 18)
+            let r_start = ethers.utils.parseUnits(startBox.value, 18)
+            let r_end = ethers.utils.parseUnits(endBox.value, 18)
+            let p1x = ethers.utils.parseUnits(pixelXtoModelX(p1[0]).toString(), 18)
+            let p1y = ethers.utils.parseUnits(pixelYtoModelY(p1[1]).toString(), 18)
+            let p2x = ethers.utils.parseUnits(pixelXtoModelX(p2[0]).toString(), 18)
+            let p2y = ethers.utils.parseUnits(pixelYtoModelY(p2[1]).toString(), 18)
+            //let amnt = ethers.utils.parseUnits(amountBox.value, 18)
+    
+
+            let text = dataBox.value
+
+            let data = ethers.utils.toUtf8Bytes(text);
+
+            let salt = ethers.utils.formatBytes32String(saltBox.value);
+
+
+
+            let predictedAddress = await bondzierFactory.predictAddress(salt)
+            predictedBox.value = predictedAddress
+            console.log('Predicted address for newly created bondzier contract: ', predictedAddress)
+
+            console.log("Creating new bondzier contract...")
+            console.log(isfungibleBox.checked, amountBox.value, total, [r_start, p1x, p1y, p2x, p2y, r_end], addressBox.value, expiryBox.value, uriBox.value, salt, data)
+            console.log(bondzierFactory.createBondzier)
+            console.log(bondzierFactory)
+            let bb = await bondzierFactory.createBondzier(isfungibleBox.checked, amountBox.value, total, [r_start, p1x, p1y, p2x, p2y, r_end], addressBox.value, expiryBox.value, uriBox.value, salt, data);
+            console.log("e")
+            let res = await bb.wait();
+            console.log("6t")
+            let newBondzierAddress = res.events[2].args.newBondzierAddress;
+            console.log("Bondzier for token created at: ", newBondzierAddress);
+
+            const _bondzier = new ethers.Contract(newBondzierAddress, bondzierabi, deployer);
+            console.log(_bondzier)
+            alert(JSON.stringify(res))
+
+        }
+
+        function updateStartPrice() {
+            
+            //if(range[1] < pixelYtoModelY(p0[1]) ) range[1] = parseFloat(x.value) + 1
+
+            let maxY = 0
+            let minY = 999999
+            p0[1] = modelYtoPixelY(parseFloat(startBox.value));
+            for (var i = points.length - 1; i >= 0; i--) {
+                //console.log(points[i])
+                if (points[i][1] > maxY) maxY = points[i][1]
+                if (points[i][1] < minY) minY = points[i][1]
+            }
+            //console.log(minY, maxY)
+            let a = pixelYtoModelY(minY)
+            let b = pixelYtoModelY(maxY)
+            //console.log(a,b)
+            range = [b, a]
+
+            p0[1] = modelYtoPixelY(parseFloat(startBox.value));
+
+
+            //if(range[1] < p3[0] || p3[0] > range[1]) range[1] = p3[0]
+
+
+        }
+
+        function updateEndPrice() {
+            
+            //if(range[1] < pixelYtoModelY(p0[1]) ) range[1] = parseFloat(x.value) + 1
+
+            let maxY = 0
+            let minY = 999999
+            p3[1] = modelYtoPixelY(parseFloat(endBox.value));
+            for (var i = points.length - 1; i >= 0; i--) {
+                //console.log(points[i])
+                if (points[i][1] > maxY) maxY = points[i][1]
+                if (points[i][1] < minY) minY = points[i][1]
+            }
+            //console.log(minY, maxY)
+            let a = pixelYtoModelY(minY)
+            let b = pixelYtoModelY(maxY)
+            //console.log(a,b)
+            range = [b, a]
+
+            p3[1] = modelYtoPixelY(parseFloat(endBox.value));
+
+
+            //if(range[1] < p3[0] || p3[0] > range[1]) range[1] = p3[0]
+
+
+        }
+
+
+        async function updateSalt() {
+            let salt =  ethers.utils.formatBytes32String(saltBox.value);
+            let predictedAddress = await bondzierFactory.predictAddress(salt)
+            predictedBox.value = predictedAddress
+        }
+
+        async function randomizeSalt() {
+          let r = (Math.random() * 99999999999999999).toString(16);
+          let salt =  ethers.utils.formatBytes32String(r);
+            let predictedAddress = await bondzierFactory.predictAddress(salt)
+            predictedBox.value = predictedAddress
+            saltBox.value = r;
+        }
+        var x0 = [10, 20]
+        /*make a circle that only moves when i have a mouse clicked and the mouse is over it.
+
+        broken into two parts. first, draw an ellipse.
+
+        */
+
+         var element = document.getElementById('p5-canvas-holder');
+        var positionInfo = element.getBoundingClientRect();
+        var height = positionInfo.height;
+        var width = positionInfo.width;
+
+        var winSize = [width, 400]
+        
+
+       
+        var pad = 50;
+        var p0 = [pad, pad]
+        var p1 = [100, 100]
+        var p2 = [200, 200]
+        var p3 = [winSize[0] - pad, winSize[1] - pad];
+        var points = [p0, p1, p2, p3]
+        let circleX = 30;
+        let circleY = 30;
+        let diameter = 30;
+        let picked = 4;
+
+        let range = [100, 200]
+        let items = 5000
+        let lastPicked = [0, 0];
+        let lastN = 0;
+        var _n = 50
+
+        if (items < _n) _n = items
+
+                window.addEventListener('resize', function() {
+                  console.log("aaaa")
+            positionInfo = element.getBoundingClientRect();
+       
+        width = positionInfo.width
+        
+        p3[0] = map(p3[0], 0, winSize[0], 0, width)
+        p2[0] = map(p2[0], 0, winSize[0], 0, width)
+        p1[0] = map(p1[0], 0, winSize[0], 0, width)
+        winSize[0] = width
+        resizeCanvas(winSize[0] + 100, winSize[1] + 100)
+        
+        });
+
+
+        function setup() {
+            pixelDensity(2);
+            var canvas = createCanvas(winSize[0] + 100, winSize[1] + 100);
+            canvas.parent('p5-canvas-holder')
+        }
+
+        function draw() {
+           textFont('Courier New');
+            background(255);
+            fill(255);
+            noStroke();
+            if (mouseIsPressed && picked < 4 ) {
+                
+                if (picked == 0 || picked == 3) {
+                    points[picked][1] = mouseY;
+                } else {
+                    points[picked][1] = mouseY;
+                    points[picked][0] = mouseX;
+                }
+                if (points[picked][0] > points[3][0]) points[picked][0] = points[3][0];
+                if (points[picked][1] > modelYtoPixelY(range[0])) points[picked][1] = modelYtoPixelY(range[0]);
+                if (points[picked][0] < pad) points[picked][0] = pad;
+                if (points[picked][1] < pad) points[picked][1] = pad;
+
+            }
+            if (mouseIsPressed && picked < 4 && picked != 1 && picked != 2) {
+                if (mouseY < pad) {
+                    range[1] += 1
+                }
+                if (mouseY > winSize[1] && range[0] > 0) {
+                    range[0] -= 1
+                    if (range[0] < 0) range[0] = 0;
+                }
+                
+
+            }
+
+            fill(50);
+            for (var i = points.length - 1; i >= 0; i--) {
+                if (i == 0) {
+                    ellipse(points[i][0] - 20, points[i][1], diameter, diameter);
+                } else if (i == 3) {
+                    ellipse(points[i][0] + 20, points[i][1], diameter, diameter);
+                } else {
+                    ellipse(points[i][0], points[i][1], diameter, diameter);
+                    fill(255)
+                    ellipse(points[i][0], points[i][1], diameter/4, diameter/4);
+                    fill(50)
+
+                }
+
+            }
+
+ 
+            noFill();
+            stroke(255, 10, 0);
+            bezier(points[0][0], points[0][1], points[1][0], points[1][1], points[2][0], points[2][1], points[3][0], points[3][1])
+              for (var i = 0; i < _n; i++) {
+
+                let realstep = 1 / (items - 1)
+                let r = Math.round(items / _n);
+                if (i == _n - 1) {
+                    __t = 1
+                } else {
+                    __t = realstep * i * r
+                }
+
+
+                bz = mbezier(__t, points[0], points[1], points[2], points[3])
+
+                line(bz[0], winSize[1] - pad, bz[0], winSize[1] - pad + 5);
+                line(pad+2 , bz[1], pad - 2, bz[1]);
+                line(points[3][0] -2, bz[1], points[3][0] + 2, bz[1]);
+
+                if ((bz[0] - mouseX) < 5) {
+                    stroke(255, 10, 0);
+                    ellipse(bz[0], bz[1], 5, 5)
+                    lastPicked = bz
+                    if (i == _n - 1) {
+                        lastN = items
+                    } else {
+                        lastN = r * i + 1
+                    }
+
+                } else {
+                    stroke(0, 0, 0);
+                    ellipse(bz[0], bz[1], 5, 5)
+                }
+                
+
+            }
+
+
+
+
+            stroke(0, 0, 0)
+            for (var i = 0; i < 20; i++) {
+                line(points[3][0] + 45, pad + (i * ((winSize[1] - (2 * pad)) / 19)), points[3][0] + 50, pad + (i * ((winSize[1] - (2 * pad)) / 19)));
+                textSize(8);
+                strokeWeight(0.5)
+                textStyle(NORMAL);
+                text(map(pad + (i * ((winSize[1] - (2 * pad)) / 19)), winSize[1] - pad, pad, range[0], range[1]).toFixed(2), points[3][0] + 55, pad + 3 + (i * ((winSize[1] - (2 * pad)) / 19)));
+                strokeWeight(1)
+            }
+            textSize(12);
+
+            let _price = map(lastPicked[1], winSize[1] - pad, pad, range[0], range[1]).toFixed(2)
+            text('Item #: ' + lastN, pad, winSize[1] - 20)
+            text('Price: ' + _price, pad + 150, winSize[1] - 20)
+
+            text('Items: ' + items, pad, winSize[1])
+            let startPrice = map(p0[1], winSize[1] - pad, pad, range[0], range[1]).toFixed(2)
+            let endPrice = map(p3[1], winSize[1] - pad, pad, range[0], range[1]).toFixed(2)
+
+            let p1y = pixelYtoModelY(p1[1]).toFixed(2)
+            let p2y = pixelYtoModelY(p2[1]).toFixed(2)
+            let p1x = pixelXtoModelX(p1[0]).toFixed(2)
+            let p2x = pixelXtoModelX(p2[0]).toFixed(2)
+            text('Start price: ' + startPrice, pad, winSize[1] + 15)
+            text('End price: ' + endPrice, pad, winSize[1] + 30)
+            textSize(8)
+            text('P1: ' + p1x + ' : ' + p1y, pad + 180, winSize[1])
+            text('P2: ' + +p2x + ' : ' + p2y, pad + 180, winSize[1] + 10)
+            stroke(255, 255, 255)
+
+
+            line(points[0][0] , points[0][1], points[0][0] - 35, points[0][1])
+
+            line(points[3][0] , points[3][1], points[3][0] + 35, points[3][1])
+
+
+
+        }
+
+        function mouseReleased() {
+            console.log(mouseX, mouseY);
+            if (picked < 4) {
+                let maxY = 0
+                let minY = 999999
+                for (var i = points.length - 1; i >= 0; i--) {
+                    console.log(points[i])
+                    if (points[i][1] >= maxY) {
+                        maxY = points[i][1]
+
+                    }
+                    if (points[i][1] <= minY) {
+                        minY = points[i][1]
+
+                    }
+                }
+
+
+                console.log(minY, maxY)
+                let a = pixelYtoModelY(minY)
+                let b = pixelYtoModelY(maxY)
+                if(b < range[0]) range[0] = b
+                if(a > range[1]) range[1] = a
+                //console.log(a,b)
+                //range = [b, a]
+
+            }
+            document.getElementById("startinput").value = pixelYtoModelY(p0[1])
+            document.getElementById("endinput").value = pixelYtoModelY(p3[1])
+
+            picked = 4;
+        };
+
+
+
+        function mousePressed() {
+            console.log("pressed!", mouseX, mouseY);
+            for (var i = points.length - 1; i >= 0; i--) {
+                if (i == 0) {
+                    if (dist(points[i][0] - 20, points[i][1], mouseX, mouseY) < diameter) {
+                        picked = i;
+                        break;
+                    }
+                } else if (i == 3) {
+                    if (dist(points[i][0] + 20, points[i][1], mouseX, mouseY) < diameter) {
+                        picked = i;
+                        break;
+                    }
+                } else {
+                    if (dist(points[i][0], points[i][1], mouseX, mouseY) < diameter) {
+                        picked = i;
+                        break;
+                    }
+
+
+                }
+            }
+          //return false;
+        }
+
+
+        var mbezier = function(t, p0, p1, p2, p3) {
+            var x = Math.pow(1 - t, 3) * p0[0] + 3 * Math.pow(1 - t, 2) * t * p1[0] + 3 * (1 - t) * Math.pow(t, 2) * p2[0] +
+                Math.pow(t, 3) * p3[0]
+            var y = Math.pow(1 - t, 3) * p0[1] + 3 * Math.pow(1 - t, 2) * t * p1[1] + 3 * (1 - t) * Math.pow(t, 2) * p2[1] +
+                Math.pow(t, 3) * p3[1]
+            return [x, y]
+
+        }
+
+        function pixelXtoModelX(x) {
+            return map(x, winSize[0] - pad, pad, items, 0)
+        }
+
+        function pixelYtoModelY(y) {
+            return map(y, winSize[1] - pad, pad, range[0], range[1])
+        }
+
+        function modelXtoPixelX(x) {
+            return map(x, items, 0, winSize[0] - pad, pad)
+        }
+
+        function modelYtoPixelY(y) {
+            return map(y, range[0], range[1], winSize[1] - pad, pad)
+        }     
+      </script>
+   </body>
+</html>
+
