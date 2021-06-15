@@ -119,7 +119,9 @@ contract Bondzier {
   * Called only once, by the factory contract.
   *
   * Accepts: 
+  *
   * current nonce (used to generate token id),
+  *
   * inNonFungible - is the token minted a fungible or non fungible token
   * points - array of point coordinates. In our modelthe x-axis represents available items, y - axis represents item price. 
   *   points[0] coordinate defines startPrice (this is actually p0[1] y coordinate in the contract defining start price. x coordinate p0[0] is set to `0`) 
