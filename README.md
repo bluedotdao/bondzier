@@ -37,6 +37,8 @@ After looking for a suitable technical solution, you find most require you to in
 This software is experimentation with a token model better suited to business that have already produced a physical item, and they wish to sell it as a tokenized good on-chain, allowing you to claim the physical item later. The claim process is outside of the scope of this experiment.
 
 
+[Check generated docs here](/docs)
+
 ### Bezier Curves library
 
 "Bézier curve (/ˈbɛz.i.eɪ/ BEH-zee-ay) is a parametric curve used in computer graphics and related fields. The curves, which are related to Bernstein polynomials, are named after Pierre Bézier, who used it in the 1960s for designing curves for the bodywork of Renault cars. Other uses include the design of computer fonts and animation." - from wikipedia [article on bezier curves](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -112,7 +114,7 @@ This will start http server and serve index.html file on localhost
 
 ## Warning // Caveat Emptor
 
-- This is untested, experimantal software written in a short period.
+- This is untested, experimental software written in a short period of time.
 - Unlicensed (aiming for MIT release when atleast basic tests are written)
 - Written with xDai network in mind.
 - Expect the unexpected changes.

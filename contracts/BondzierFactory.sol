@@ -5,6 +5,9 @@ import "./Clones.sol";
 import "./IRegister.sol";
 import "./IInit.sol";
 
+  /**
+  * @dev Creates new bondzier markets and keeps track of the deployed contracts
+  */
 contract BondzierFactory {
 
   address public bondzierContractAddress;
@@ -16,6 +19,9 @@ contract BondzierFactory {
   
   IRegister private bezier1155;
 
+  /**
+  * @dev Event emmited when a new bondzier is created for easier discovery
+  */
   event BondzierCreated(address newBondzierAddress);
 
   constructor (address _bondzierContractAddress, address _tokenContractAddress) {
@@ -24,14 +30,23 @@ contract BondzierFactory {
     bezier1155 = IRegister(tokenContractAddress);
   }
 
+  /**
+  * @dev Returns how many bondzier markets have been creaetes
+  */
   function allContractsLength() external view returns (uint) {
         return contracts.length;
     }
 
+  /**
+  * @dev Provided with salt, predicts the address of the cloned bondzier contract
+  */
   function predictAddress(bytes32 _salt) public view returns (address) {
     return Clones.predictDeterministicAddress(bondzierContractAddress, _salt); 
   }
 
+  /**
+  * @dev Creates new bondzier market, provided params. If the salt is not unique, will fail. 
+  */
   function createBondzier(bool _isNonFungible, 
                           uint256 _amnt, 
                           uint256 _total, 
