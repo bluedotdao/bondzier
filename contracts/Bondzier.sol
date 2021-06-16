@@ -55,14 +55,14 @@ contract Bondzier {
   }
 
   /**
-  * @dev Returns how many tokens are still available for purchase
+  * @dev Returns how many token(s) buy opportunities are available
   */
   function available () public view returns (uint256) {
       return total - n; 
     
   }
   /**
-  * @dev Returns expected price of the nth token.
+  * @dev Returns expected price of the nth token(s).
   */
   function priceN (uint256 _n) public view returns(uint256 p) {
 
@@ -73,7 +73,7 @@ contract Bondzier {
   }
 
   /**
-  * @dev Returns the price of the next token to be sold/minted.
+  * @dev Returns the price of the next token(s) to be sold/minted.
   */
   function nextPrice() public view returns (uint256) {
     require(n < total, "Sold Out.");
@@ -81,11 +81,16 @@ contract Bondzier {
   }
    
    /**
-  * @dev Buy next available token. Function expects `msg.value` to be greater or equal to the `nextPrice()` result
+  * @dev Buy next available token(s). Function expects `msg.value` to be greater or equal to the `nextPrice()` result
+  *
   * Reverts if market closed.
+  *
   * If everything is ok, a new token(s) will be minted
+  *
   * Funds immediately sent to the owner address
-  * Token immideately minted to the msg.sender
+  *
+  * Token(s) immideately minted to the msg.sender
+  *
   * Any extra funds returned to the msg.sender
   */
   function buy () external payable {
@@ -120,19 +125,29 @@ contract Bondzier {
   *
   * Accepts: 
   *
-  * current nonce (used to generate token id),
+  * current `nonce` (used to generate token id),
   *
-  * inNonFungible - is the token minted a fungible or non fungible token
-  * points - array of point coordinates. In our modelthe x-axis represents available items, y - axis represents item price. 
-  *   points[0] coordinate defines startPrice (this is actually p0[1] y coordinate in the contract defining start price. x coordinate p0[0] is set to `0`) 
-  *   [points[1], points[2]]. and [points[3], points[4]] coordinates define p1[x,y] and p2[x,y], the 'freely movable' ponts that change the curves shape.
-  *   points[5] coordinate defines endPrice (this is actually p3[1] y coordinate in the contract defining end price. x coordinate p3[0] is set to `total`) 
-  * amnt - amount to be minted on each buy. Expected to be 1 for NFTs
-  * total - total buy opportunities available, on each buy, new token(s) is/are minted.
-  * endtime - UNIX timestamp in seconds set into the future, when the sales will be stopped.
-  * uri - resource for your token
-  * tokenContractAddress - address of the 1155 token contract
-  * data - a place for your data, in bytes.
+  * `inNonFungible` - is the token minted a fungible or non fungible token
+  *
+  * `points` - array of point coordinates. In our modelthe x-axis represents available items, y - axis represents item price. 
+  *
+  * `points[0]` coordinate defines `startPrice` (this is `p0[1]` y coordinate in the contract defining start price. x coordinate `p0[0]` is set to `0`) 
+  *
+  * `[points[1], points[2]]` and `[points[3], points[4]]` coordinates define `p1[x,y]` and `p2[x,y]`, the 'freely movable' ponts that change the curves shape.
+  *
+  *  `points[5]` coordinate defines `endPrice` (this is actually `p3[1]` y coordinate in the contract defining end price. x coordinate `p3[0]` is set to `total`) 
+  *
+  * `amnt` - amount to be minted on each buy. Expected to be 1 for NFTs
+  *
+  * `total` - total buy opportunities available, on each buy, new token(s) is/are minted.
+  *
+  * `endtime` - UNIX timestamp in seconds set into the future, when the sales will be stopped.
+  *
+  * `uri` - resource for your token
+  *
+  * `tokenContractAddress` - address of the 1155 token contract
+  *
+  * `data` - a place for your data, in bytes.
   */
 
   function init(  uint128 _nonce,

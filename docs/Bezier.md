@@ -5,27 +5,33 @@
 4 control points Bezier curves in Solidity
 If you have not heard about bezier curves a nice starting point is to visit https://javascript.info/bezier-curve   
 and play with the examples.
+
 The library includes functions to calculate a point coordinates for a bezier curve given p0 - p3 coordinates eg. [x, y] and a parameter t in range[0,1]
 Depends on PRBMathUD60x18.sol library for uint256.
+
   This library uses bezier implementation as follows:
-   ```javascript
+
+    ```
      f(t) = Math.pow(1 - t, 3) * a 
              + 3 * Math.pow(1 - t, 2) * t * b 
              + 3 * (1 - t) * Math.pow(t, 2) * c 
              + Math.pow(t, 3) * d 
-     ```  
+    ```
+
    Bezier function can also be represented in polynomial form:
 
-     ```javascript
+     
+    ```
      f(t) = (-a + 3 * b -3 * c + d ) * Math.pow(t,3) 
              + (3 * a - 6 * b + 3 * c) * Math.pow(t,2) 
              + ( - 3 * a + 3 * b ) * t 
              + a
-      ```
+     ```
+
    this form could maybe help us save some gas as we could precalculate values for each new bezier function, 
    but we would need to use int256 in solidity:
 
-    ```javascript
+     ```     
      bezier2 = function(t, p0, p1, p2, p3) {
           
           // precalculate these for each bezier function, can be negative even if all your point coordinates are positive values
@@ -41,7 +47,7 @@ Depends on PRBMathUD60x18.sol library for uint256.
          var y = Ay*Math.pow(t,3) + By*Math.pow(t,2) + Cy*t + p0[1]
         
          return [x, y]
-         ```
+      ```
 
 
 ### `pow(uint256 _t, uint256 _e) → uint256` (internal)
