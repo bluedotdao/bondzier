@@ -2,10 +2,13 @@
 
 
 
-Implementation contract of a bondzier curve, to be cloned and init'd by BondzierFactory contract
-Expects to be granted a miner role on a 1155 contract
-Offers `total` 1155 token for sale, where the price is determined by a Y coordinate of a defined bezier curve.
-param `t` will be calculated depending on your defined `total` and increased by each newly minted token.
+Implementation contract of a bondzier curve, to be cloned and init'd by BondzierFactory contract.
+
+Expects to be granted a minter role on a 1155 contract when deployed.
+
+Offers `total` tokens* for sale, where the price is determined by a Y coordinate of a defined bezier curve. (Since `amnt` can be > 1 for non-fungibles, `total` might not be the same as the number of the minted tokens. )
+
+Param `t` will be calculated depending on your defined `total` and increased by each newly minted token.
 
 #### The `Bondzier` coordinate system 
 
@@ -16,7 +19,7 @@ we then draw the bezier curve in this coordinate system.
 
 #### `Bondzier` - setting the restricitions
 
-Pivot points confined to have coordinate x in range `0 < x < total items` and `y >= 0`, to prevent loops*
+Pivot points confined to have coordinate x in range `0 <= x <= total items` and `y >= 0`, to prevent loops*
 
 All coordinate values confined to `y >= 0`
 
@@ -51,7 +54,7 @@ For larger numbers of total items (you solve bezier for larger number of t value
 For each call of the mint function you increase the t param by a step amount, calculated from total items as above.
 
 If non-fungible, mint amt must be 1, 
-for fungibles, mint amt must be > 1
+for fungibles, mint amt must be >= 1
 
 The price to call mint is determined by the calculated y coordinate for the current param t.
 
