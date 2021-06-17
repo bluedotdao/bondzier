@@ -7,6 +7,55 @@ Expects to be granted a miner role on a 1155 contract
 Offers `total` 1155 token for sale, where the price is determined by a Y coordinate of a defined bezier curve.
 param `t` will be calculated depending on your defined `total` and increased by each newly minted token.
 
+#### The `Bondzier` coordinate system 
+
+x axis ->  items to be minted (lets define total items)
+y axis ->  price
+
+we then draw the bezier curve in this coordinate system.
+
+#### `Bondzier` - setting the restricitions
+
+Pivot points confined to have coordinate x in range `0 < x < total items` and `y >= 0`, to prevent loops*
+
+All coordinate values confined to `y >= 0`
+
+First anchor point locked to have 0 as x coordinate
+
+Second anchor point locked  to have total items as x coordinate
+
+You define y position of the first anchor point and this is your start price, `y >= 0`
+
+You define y position of the second anchor pont and this is your end price , `y >= 0`
+
+You define pivot points positions, thus the shape of the curve.
+
+#### Drawing the curve
+
+To draw your bezier curve, you can provide param t. 
+
+For `t = 0`, the bezier solves to coordinates of the first anchor point. for `t = 1`, solves to coordinates of the second achor points. Solving for values from 0 to 1 draws the whole curve. 
+
+#### Relation between t and total items in `Bondzier`
+
+If your `total items = 1`, `t = 1` and your bezier curve essentially solves to a point, regardless of the pivot points and position of the first anchor point
+
+If `total items = 2`, we provide two values for t, `t = 0` and `t = 1` and your bezier curve is essentialy a line in space, regardless of the pivot points.
+
+If `total items = 3`, `t = [0,0.5,1]` and your bondzier curve is starting to look like a curve a bit.
+
+For larger numbers of total items (you solve bezier for larger number of t values), imagine your curve is getting smoother and smoother.
+
+#### Minting the tokens
+
+For each call of the mint function you increase the t param by a step amount, calculated from total items as above.
+
+If non-fungible, mint amt must be 1, 
+for fungibles, mint amt must be > 1
+
+The price to call mint is determined by the calculated y coordinate for the current param t.
+
+
 
 ### `step() → uint256` (public)
 

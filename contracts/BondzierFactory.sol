@@ -24,6 +24,13 @@ contract BondzierFactory {
   */
   event BondzierCreated(address newBondzierAddress);
 
+  /**
+  * @dev Constructor accepts two adress params: 
+  * 
+  * bondzierContractAddress: The address of the deployed Bondzier implementation contract. This contract will be cloned and initialised for each newly created Bondzier market.
+  * 
+  * tokenContractAddress: The address of a erc1155 contract that implements register and mint functions.  
+  */
   constructor (address _bondzierContractAddress, address _tokenContractAddress) {
     bondzierContractAddress = _bondzierContractAddress;
     tokenContractAddress = _tokenContractAddress;
@@ -31,14 +38,14 @@ contract BondzierFactory {
   }
 
   /**
-  * @dev Returns how many bondzier markets have been creaetes
+  * @dev Returns how many bondzier markets have been created
   */
   function allContractsLength() external view returns (uint) {
         return contracts.length;
     }
 
   /**
-  * @dev Provided with salt, predicts the address of the cloned bondzier contract
+  * @dev Predicts the address of the cloned bondzier contract
   */
   function predictAddress(bytes32 _salt) public view returns (address) {
     return Clones.predictDeterministicAddress(bondzierContractAddress, _salt); 

@@ -9,19 +9,23 @@ Creates new bondzier markets and keeps track of the deployed contracts
 
 
 
+Constructor accepts two adress params: 
 
+bondzierContractAddress: The address of the deployed Bondzier implementation contract. This contract will be cloned and initialised for each newly created Bondzier market.
+
+tokenContractAddress: The address of a erc1155 contract that implements register and mint functions.
 
 ### `allContractsLength() → uint256` (external)
 
 
 
-Returns how many bondzier markets have been creaetes
+Returns how many bondzier markets have been created
 
 ### `predictAddress(bytes32 _salt) → address` (public)
 
 
 
-Provided with salt, predicts the address of the cloned bondzier contract
+Predicts the address of the cloned bondzier contract
 
 ### `createBondzier(bool _isNonFungible, uint256 _amnt, uint256 _total, uint256[6] _points, address _owneraddress, uint256 _endTime, string _uri, bytes32 _salt, bytes data) → address` (public)
 
