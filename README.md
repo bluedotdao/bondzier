@@ -11,6 +11,7 @@ This software is experimentation with a token model better suited to business th
 
 
 [Check generated docs here](/docs)
+
 [Read mythx report here](/reports/mythx.md)
 
 ## Motivation
