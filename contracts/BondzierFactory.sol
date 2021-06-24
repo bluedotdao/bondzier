@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.4;
+pragma solidity 0.8.4;
 
 import "./Clones.sol";
 import "./IRegister.sol";
@@ -17,7 +17,7 @@ contract BondzierFactory {
   
   uint128 public nonce = 0;
   
-  IRegister private bezier1155;
+  IRegister private bondzier1155;
 
   /**
   * @dev Event emmited when a new bondzier is created for easier discovery
@@ -34,7 +34,7 @@ contract BondzierFactory {
   constructor (address _bondzierContractAddress, address _tokenContractAddress) {
     bondzierContractAddress = _bondzierContractAddress;
     tokenContractAddress = _tokenContractAddress;
-    bezier1155 = IRegister(tokenContractAddress);
+    bondzier1155 = IRegister(tokenContractAddress);
   }
 
   /**
@@ -47,12 +47,12 @@ contract BondzierFactory {
   /**
   * @dev Predicts the address of the cloned bondzier contract
   */
-  function predictAddress(bytes32 _salt) public view returns (address) {
+  function predictAddress(bytes32 _salt) external view returns (address) {
     return Clones.predictDeterministicAddress(bondzierContractAddress, _salt); 
   }
 
   /**
-  * @dev Creates new bondzier market, provided params. If the salt is not unique, will fail. See [init in Bondzier.sol](/docs/Bezier.md##inituint128-_nonce-bool-_isnonfungible-uint256-_amnt-uint256-_total-uint2566-_points-address-_owneraddress-uint256-_endtime-string-_uri-address-_tokencontractaddress-bytes-_data-public) for more details
+  * @dev Creates new bondzier market, provided params. If the salt is not unique, will fail. See [init in Bondzier.sol](/docs/Bondzier.md##inituint128-_nonce-bool-_isnonfungible-uint256-_amnt-uint256-_total-uint2566-_points-address-_owneraddress-uint256-_endtime-string-_uri-address-_tokencontractaddress-bytes-_data-public) for more details
   */
   function createBondzier(bool _isNonFungible, 
                           uint256 _amnt, 
@@ -63,13 +63,20 @@ contract BondzierFactory {
                           string memory _uri, 
                           bytes32 _salt,
                           bytes memory data
-                         ) public returns (address) {
-    address clone = Clones.cloneDeterministic(bondzierContractAddress, _salt);
-    IInit(clone).init(nonce, _isNonFungible, _amnt, _total, _points, _owneraddress, _endTime, _uri, tokenContractAddress, data);
-    contracts.push(clone);
-    bezier1155.register(_uri, clone, nonce);
-    emit BondzierCreated(clone);
+                         ) external {
+
+    address pa = this.predictAddress(_salt);
+    uint128 _n = nonce;
+
     nonce += 1;
-    return clone;
+    contracts.push(pa);
+    emit BondzierCreated(pa);
+
+    bondzier1155.register(_uri, pa, _n);
+    
+    Clones.cloneDeterministic(bondzierContractAddress, _salt);
+    IInit(pa).init(_n, _isNonFungible, _amnt, _total, _points, _owneraddress, _endTime, _uri, tokenContractAddress, data);
+    
+      
   }
 }

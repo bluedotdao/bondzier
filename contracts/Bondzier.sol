@@ -1,8 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.4;
+pragma solidity 0.8.4;
 
 import "./PRBMathUD60x18.sol";
-import "hardhat/console.sol";
 import "./IMinter.sol";
 import "./Bezier.sol";
 
@@ -157,8 +156,6 @@ contract Bondzier {
     n = n + 1e18;
     if(isNonFungible) {h = h + 1;}
     
-
-    console.log(id);
 
     (bool t2, ) = OwnerAddress.call{value : price}("");
     require(t2, "Owner transfer failed...");
