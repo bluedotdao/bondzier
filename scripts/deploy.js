@@ -86,7 +86,7 @@ async function main() {
           gasLimit: 900000
       });
       let res = await bb.wait();
-      let newBondzierAddress = res.events[2].args.newBondzierAddress; 
+      let newBondzierAddress = res.events[0].args.newBondzierAddress; 
       console.log("Bondzier for token created at: ", newBondzierAddress);
 
       const _bondzier = new ethers.Contract(newBondzierAddress, Bondzier.interface, Bondzier.signer);

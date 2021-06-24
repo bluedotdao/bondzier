@@ -255,7 +255,7 @@
             console.log("e")
             let res = await bb.wait();
             console.log("6t")
-            let newBondzierAddress = res.events[2].args.newBondzierAddress;
+            let newBondzierAddress = res.events[0].args.newBondzierAddress;
             console.log("Bondzier for token created at: ", newBondzierAddress);
 
             const _bondzier = new ethers.Contract(newBondzierAddress, bondzierabi, deployer);
