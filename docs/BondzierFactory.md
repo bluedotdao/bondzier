@@ -31,7 +31,7 @@ Predicts the address of the cloned bondzier contract
 
 
 
-Creates new bondzier market, provided params. If the salt is not unique, will fail. See [init in Bondzier.sol](/docs/Bondzier.md#inituint128-_nonce-bool-_isnonfungible-uint256-_amnt-uint256-_total-uint2566-_points-address-_owneraddress-uint256-_endtime-string-_uri-address-_tokencontractaddress-bytes-_data-public
+Creates new bondzier market, provided params. If the salt is not unique, will fail. See [init in Bondzier.sol](/docs/Bondzier.md#inituint128-_nonce-bool-_isnonfungible-uint256-_amnt-uint256-_total-uint2566-_points-address-_owneraddress-uint256-_endtime-string-_uri-address-_tokencontractaddress-bytes-_data-public)
 
 
 ### `BondzierCreated(address newBondzierAddress)`
