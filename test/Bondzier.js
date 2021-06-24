@@ -38,14 +38,8 @@ describe("Bondzier", function() {
         let text = "Hello World!";
         let bytes = ethers.utils.toUtf8Bytes(text);
 
-        let total = ethers.utils.parseUnits('4', 18)
-        let new_total = ethers.utils.parseUnits('8', 18)
-        let r_start = ethers.utils.parseUnits('100', 18)
-        let r_end = ethers.utils.parseUnits('150', 18)
-        let p1x = ethers.utils.parseUnits('1', 18)
-        let p1y = ethers.utils.parseUnits('160.47', 18)
-        let p2x = ethers.utils.parseUnits('1', 18)
-        let p2y = ethers.utils.parseUnits('177.80', 18)
+        let total = ethers.utils.parseUnits('7', 18)
+        let new_total = ethers.utils.parseUnits('9', 18)
         let amnt = 1;
         let salt = ethers.utils.formatBytes32String('Bondzier');
 
@@ -54,10 +48,63 @@ describe("Bondzier", function() {
             gasLimit: 900000
         });
         let res = await bb.wait();
-        let newBondzierAddress = res.events[2].args.newBondzierAddress;
+        let newBondzierAddress = res.events[0].args.newBondzierAddress;
         const _bondzier = new ethers.Contract(newBondzierAddress, Bondzier.interface, acc2);
         await expect(
-            _bondzier.init(42, true, amnt, total, [0, 1, 0, 1, 0, 1], deployer.address, timestamp + 9000000, "", bondzier.address, bytes)
+            _bondzier.init(42, true, amnt, total, [0, 2, 0, 2, 0, 2], deployer.address, timestamp + 9000000, "", bondzier.address, bytes)
         ).to.be.revertedWith("cannot init.");
+    })
+     it("must not be able to init new bondzier contract with the same seed", async function() {
+
+        const [deployer, acc2] = await ethers.getSigners();
+        let timestamp = Math.round(Date.now() / 1000) + 900
+        let text = "Pozz!";
+        let bytes = ethers.utils.toUtf8Bytes(text);
+
+        let total = ethers.utils.parseUnits('5', 18)
+        let amnt = 2;
+        let salt = ethers.utils.formatBytes32String('Bondzier');
+
+        await expect(
+           bondzierFactory.createBondzier(false, amnt, total, [0, 3, 0, 3, 0, 3], deployer.address, timestamp, "https://bondzier2.io", salt, bytes, {
+            gasLimit: 900000
+        })
+        ).to.be.revertedWith("ERC1167: create2 failed");
+    })
+    it("must not be able to buy more than available", async function() {
+
+        const [deployer, acc2] = await ethers.getSigners();
+       
+        let timestamp = Math.round(Date.now() / 1000) + 900
+        let text = "Pozz!";
+        let bytes = ethers.utils.toUtf8Bytes(text);
+         let startPrice = 0
+         let endPrice = 3
+        let total = ethers.utils.parseUnits('3', 18)
+        let amnt = 1;
+        let salt = ethers.utils.formatBytes32String('NewBondzier');
+        let bb = await bondzierFactory.createBondzier(true, amnt, total, [startPrice, 3, 0, 3, 0, endPrice], deployer.address, timestamp, "https://bondzier2.io", salt, bytes, {
+            gasLimit: 900000
+        })
+        let res = await bb.wait();
+        let newBondzierAddress = res.events[0].args.newBondzierAddress;
+         let balanceStart = await deployer.getBalance();
+        const _bondzier = new ethers.Contract(newBondzierAddress, Bondzier.interface, acc2);
+        let nextPrice = await _bondzier.nextPrice()
+        expect(nextPrice.toString()).to.equal('0')
+        await _bondzier.buy({value : nextPrice})
+        nextPrice = await _bondzier.nextPrice()
+        expect(nextPrice.toString()).to.equal('0')
+        await _bondzier.buy({value : nextPrice})
+        nextPrice = await _bondzier.nextPrice()
+        expect(nextPrice.toString()).to.equal('3')
+        await _bondzier.buy({value : nextPrice})
+        let balanceEnd = await deployer.getBalance();
+        await expect(balanceEnd.sub(balanceStart).toString()).to.equal('3')
+        await expect(
+           _bondzier.nextPrice()
+        ).to.be.revertedWith("Sold Out.");
+        
+    
     })
 });

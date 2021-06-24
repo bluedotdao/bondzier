@@ -5,6 +5,15 @@ Customizable bezier bonding curves. Create, mint and sell erc1155 fungible or no
 
 ![Example Bondzier Curves](bondzier.jpg?raw=true "Example Bondzier Curves")
 
+## Bondzier
+
+This software is experimentation with a token model better suited to business that have already produced a physical item, and they wish to sell it as a tokenized good on-chain, allowing you to claim the physical item later. The claim process is outside of the scope of this experiment.
+
+
+[Check generated docs here](/docs)
+
+[Read mythx report here](/reports/mythx.md)
+
 ## Motivation
 
 
@@ -32,12 +41,7 @@ After discussion with your team, a smart contract system is imagined allowing yo
 
 After looking for a suitable technical solution, you find most require you to invest time and money in developing a custom solution, but also to lock some funds as a liquidity. Since most of your budget is already reserved for the performers, venue decoration and other festival expenses so your guests can have a time of their life, you find this process inefficient.
 
-## Bondzier
 
-This software is experimentation with a token model better suited to business that have already produced a physical item, and they wish to sell it as a tokenized good on-chain, allowing you to claim the physical item later. The claim process is outside of the scope of this experiment.
-
-
-[Check generated docs here](/docs)
 
 ### Bezier Curves library
 
@@ -81,6 +85,7 @@ There are two basic types of user envisioned for this system:
 
 ```
 npm install
+npm test
 ```
 
 #### first terminal instance:

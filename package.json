@@ -8,8 +8,8 @@
     "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
     "start:server": "npx http-server -c-1",
     "start:node": " npx hardhat node --show-accounts",
-    "generate:docs" : "npx solidity-docgen --solc-module solc-0.8.4"
-
+    "generate:docs": "npx solidity-docgen --solc-module solc-0.8.4",
+    "analyze": "mythx analyze --create-group --mode standard ./contracts/"
   },
   "author": "Nikola Jokic",
   "license": "UNLICENSED",
@@ -22,7 +22,7 @@
     "hardhat": "^2.3.0",
     "hardhat-deploy": "^0.7.10",
     "http-server": "^0.12.3",
-    "solc-0.8.4": "npm:solc@^0.8.5"
+    "solc-0.8.4": "npm:solc@0.8.4"
   },
   "dependencies": {
     "solidity-docgen": "^0.5.13"
