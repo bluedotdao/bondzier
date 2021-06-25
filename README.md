@@ -14,6 +14,8 @@ This software is experimentation with a token model better suited to business th
 
 [Read mythx report here](/reports/mythx.md)
 
+[Read slither report here](/reports/slither.md)
+
 ## Motivation
 
 
