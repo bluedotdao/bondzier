@@ -32,6 +32,9 @@ contract BondzierFactory {
   * tokenContractAddress: The address of a erc1155 contract that implements register and mint functions.  
   */
   constructor (address _bondzierContractAddress, address _tokenContractAddress) {
+    require(_tokenContractAddress != address(0), "Token contract address must be non-zero.");
+    require(_bondzierContractAddress != address(0), "Bondzier contract address must be non-zero.");
+    
     bondzierContractAddress = _bondzierContractAddress;
     tokenContractAddress = _tokenContractAddress;
     bondzier1155 = IRegister(tokenContractAddress);
@@ -63,7 +66,7 @@ contract BondzierFactory {
                           string memory _uri, 
                           bytes32 _salt,
                           bytes memory data
-                         ) external {
+                         ) external returns (address) {
 
     address pa = this.predictAddress(_salt);
     uint128 _n = nonce;
@@ -74,9 +77,9 @@ contract BondzierFactory {
 
     bondzier1155.register(_uri, pa, _n);
     
-    Clones.cloneDeterministic(bondzierContractAddress, _salt);
+    address clone = Clones.cloneDeterministic(bondzierContractAddress, _salt);
     IInit(pa).init(_n, _isNonFungible, _amnt, _total, _points, _owneraddress, _endTime, _uri, tokenContractAddress, data);
-    
+    return clone;
       
   }
 }

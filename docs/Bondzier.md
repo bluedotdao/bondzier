@@ -66,13 +66,13 @@ The price to call mint is determined by the calculated y coordinate for the curr
 
 Function to calulate `step` (how much will we move from 0 towards 1 for the `t` param ). Depends on your defined `total`
 
-### `available() → uint256` (public)
+### `available() → uint256` (external)
 
 
 
 Returns how many token(s) buy opportunities are available
 
-### `priceN(uint256 _n) → uint256 p` (public)
+### `priceN(uint256 _n) → uint256 p` (external)
 
 
 
@@ -100,7 +100,7 @@ Token(s) immideately minted to the msg.sender
 
 Any extra funds returned to the msg.sender
 
-### `init(uint128 _nonce, bool _isNonFungible, uint256 _amnt, uint256 _total, uint256[6] _points, address _owneraddress, uint256 _endTime, string _uri, address _tokenContractAddress, bytes _data)` (public)
+### `init(uint128 _nonce, bool _isNonFungible, uint256 _amnt, uint256 _total, uint256[6] _points, address _owneraddress, uint256 _endTime, string _uri, address _tokenContractAddress, bytes _data)` (external)
 
 
 

@@ -4,6 +4,7 @@ pragma solidity 0.8.4;
 import "./PRBMathUD60x18.sol";
 import "./IMinter.sol";
 import "./Bezier.sol";
+import "./IInit.sol";
 
 /**
  * @dev Implementation contract of a bondzier curve, to be cloned and init'd by BondzierFactory contract.
@@ -64,7 +65,7 @@ import "./Bezier.sol";
  *
  */
 
-contract Bondzier { 
+contract Bondzier is IInit { 
   
   using PRBMathUD60x18 for uint256;
 
@@ -108,17 +109,16 @@ contract Bondzier {
   /**
   * @dev Returns how many token(s) buy opportunities are available
   */
-  function available () public view returns (uint256) {
+  function available () external view returns (uint256) {
       return total - n; 
     
   }
   /**
   * @dev Returns expected price of the nth token(s).
   */
-  function priceN (uint256 _n) public view returns(uint256 p) {
+  function priceN (uint256 _n) external view returns(uint256 p) {
 
     require(PRBMathUD60x18.frac(_n) == 0, "n must be a whole number.");
-    require(_n >= 0, "n must be equal or greater than zero");
     require(_n < total, "n must be less than total");
     return Bezier.bezierY(p0[1],p1[1],p2[1],p3[1],_n.mul(step()));
   }
@@ -209,18 +209,16 @@ contract Bondzier {
                   string memory _uri, 
                   address _tokenContractAddress,
                   bytes memory _data
-                ) public { 
+                ) external override { 
     
     require (t != 1e18, 'cannot init.');
     require(PRBMathUD60x18.frac(_total) == 0, "total must be a whole number.");
     require(_total >= 1e18, "total must be greater or equal 1e18");
     require(_amnt > 0, "Minting amount must be greater than zero..");
-    require(_points[0] >= 0, "start price must be greater or equal to zero");
-    require(_points[5] >= 0, "end price must be greater or equal to zero");
-    require(_points[1] >= 0 && _points[1] <= _total, "point coords not ok");
-    require(_points[3] >= 0 && _points[3] <= _total, "point coords not ok");
-    require(_points[2] >= 0 && _points[4] >= 0, "point coords not ok");
+    require(_points[1] <= _total, "point coords not ok");
+    require(_points[3] <= _total, "point coords not ok");
     require(_owneraddress != address(0), "Owner address must be non-zero.");
+    require(_tokenContractAddress != address(0), "Token contract address must be non-zero.");
     require(_endTime > block.timestamp, "Endtime must be set into future."); 
     if(_isNonFungible) {
       require(_amnt == 1, "Non-fungible tokens must have amount set to 1");

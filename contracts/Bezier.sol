@@ -58,19 +58,19 @@ library Bezier {
 
   using PRBMathUD60x18 for uint256;
 
-  uint256 internal constant three = 3*1e18;
+  uint256 internal constant THREE = 3*1e18;
   /**
  * @dev Helper to calculate pow using the PRBMathUD60x18
  */
-  function pow (uint256 _t, uint256 _e) internal pure returns (uint256) {
-     return PRBMathUD60x18.pow(_t, _e);
+  function pow (uint256 t, uint256 e) internal pure returns (uint256) {
+     return PRBMathUD60x18.pow(t, e);
   }
 
  /**
  * @dev Helper function to move some of the calculations for bezier out to a spearate function
  */
-  function precalc(uint256 _t) internal pure returns(uint256, uint256) {
-     return (three.mul(pow(1e18 - _t, 2)).mul(_t), three.mul( 1e18 - _t).mul(pow(_t,2)));
+  function precalc(uint256 t) internal pure returns(uint256, uint256) {
+     return (THREE.mul(pow(1e18 - t, 2)).mul(t), THREE.mul( 1e18 - t).mul(pow(t,2)));
   }
 
    /**
