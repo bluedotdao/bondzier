@@ -51,13 +51,13 @@ Depends on PRBMathUD60x18.sol library for uint256.
    ```
 
 
-### `pow(uint256 _t, uint256 _e) → uint256` (internal)
+### `pow(uint256 t, uint256 e) → uint256` (internal)
 
 
 
 Helper to calculate pow using the PRBMathUD60x18
 
-### `precalc(uint256 _t) → uint256, uint256` (internal)
+### `precalc(uint256 t) → uint256, uint256` (internal)
 
 
 

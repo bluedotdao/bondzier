@@ -22,13 +22,13 @@ The account that deploys the contract will be granted the default admin role, wh
 Grants `DEFAULT_ADMIN_ROLE` to the account that
 deploys the contract.
 
-### `register(string uri, address c, uint128 nonce)` (public)
+### `register(string uri, address c, uint128 nonce)` (external)
 
 
 
 Registers a new token type.
 
-### `mint(address to, uint256 id, uint256 amount, bytes data)` (public)
+### `mint(address to, uint256 id, uint256 amount, bytes data)` (external)
 
 
 
@@ -40,7 +40,7 @@ Requirements:
 
 - the caller must have the `MINTER_ROLE`.
 
-### `mintBatch(address to, uint256[] ids, uint256[] amounts, bytes data)` (public)
+### `mintBatch(address to, uint256[] ids, uint256[] amounts, bytes data)` (external)
 
 
 

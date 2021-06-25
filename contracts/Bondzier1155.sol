@@ -6,6 +6,8 @@ import "./ERC1155/ERC1155.sol";
 import "./ERC1155/extensions/ERC1155Burnable.sol";
 import "./ERC1155/utils/AccessControlEnumerable.sol";
 import "./ERC1155/utils/Context.sol";
+import "./IMinter.sol";
+import "./IRegister.sol";
 
 /**
  * @dev {Bondzier1155} token, including:
@@ -20,7 +22,7 @@ import "./ERC1155/utils/Context.sol";
  * The account that deploys the contract will be granted the default admin role, which will let it grant minter
  *  roles to other accounts.
  */
-contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable {
+contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable, IMinter, IRegister {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     /**
@@ -34,7 +36,7 @@ contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable {
      /**
      * @dev Registers a new token type.
      */
-    function register(string memory uri, address c, uint128 nonce) public {
+    function register(string memory uri, address c, uint128 nonce) external override {
         require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "BondzierERC1155: must have admin role to register");
         
         grantRole(MINTER_ROLE, c);
@@ -51,7 +53,7 @@ contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable {
      *
      * - the caller must have the `MINTER_ROLE`.
      */
-    function mint(address to, uint256 id, uint256 amount, bytes memory data) public virtual {
+    function mint(address to, uint256 id, uint256 amount, bytes memory data) external override virtual {
         require(hasRole(MINTER_ROLE, _msgSender()), "BondzierERC1155: must have minter role to mint");
 
         _mint(to, id, amount, data);
@@ -60,7 +62,7 @@ contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable {
     /**
      * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] variant of {mint}.
      */
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) public virtual {
+    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) external virtual {
         require(hasRole(MINTER_ROLE, _msgSender()), "BondzierERC1155: must have minter role to mint");
 
         _mintBatch(to, ids, amounts, data);

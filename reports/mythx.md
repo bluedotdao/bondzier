@@ -1,7 +1,7 @@
-# MythX Report for 60d4d3093a286200190f0159
+# MythX Report for 60d621099ca9bc00186d6d79
 ##  Report for ERC1155.sol
 
-- **UUID:** [b22cc0e0-8ff8-4fe8-87ca-ab8312ed2708](https://dashboard.mythx.io/#/console/analyses/b22cc0e0-8ff8-4fe8-87ca-ab8312ed2708)
+- **UUID:** [32e38cf5-aa22-442c-82ab-8065ad90c396](https://dashboard.mythx.io/#/console/analyses/32e38cf5-aa22-442c-82ab-8065ad90c396)
 - **Issue:** SWC-123 - Requirement Violation
 - **Severity:** Low
 - **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
@@ -11,7 +11,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 ```
 
 
-- **UUID:** [948a70a6-a39e-4cd9-80f7-880ebcfb7966](https://dashboard.mythx.io/#/console/analyses/948a70a6-a39e-4cd9-80f7-880ebcfb7966)
+- **UUID:** [b4869ed4-9c46-479a-9b11-0f54a2d30210](https://dashboard.mythx.io/#/console/analyses/b4869ed4-9c46-479a-9b11-0f54a2d30210)
 - **Issue:** SWC-123 - Requirement Violation
 - **Severity:** Low
 - **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
@@ -21,7 +21,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 ```
 
 
-- **UUID:** [b22cc0e0-8ff8-4fe8-87ca-ab8312ed2708](https://dashboard.mythx.io/#/console/analyses/b22cc0e0-8ff8-4fe8-87ca-ab8312ed2708)
+- **UUID:** [32e38cf5-aa22-442c-82ab-8065ad90c396](https://dashboard.mythx.io/#/console/analyses/32e38cf5-aa22-442c-82ab-8065ad90c396)
 - **Issue:** SWC-123 - Requirement Violation
 - **Severity:** Low
 - **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
@@ -31,7 +31,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 ```
 
 
-- **UUID:** [948a70a6-a39e-4cd9-80f7-880ebcfb7966](https://dashboard.mythx.io/#/console/analyses/948a70a6-a39e-4cd9-80f7-880ebcfb7966)
+- **UUID:** [b4869ed4-9c46-479a-9b11-0f54a2d30210](https://dashboard.mythx.io/#/console/analyses/b4869ed4-9c46-479a-9b11-0f54a2d30210)
 - **Issue:** SWC-123 - Requirement Violation
 - **Severity:** Low
 - **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
@@ -83,7 +83,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
 ##  Report for ERC165Checker.sol
 
-- **UUID:** [4fb201e8-c6b5-4656-95ee-ff0f98223447](https://dashboard.mythx.io/#/console/analyses/4fb201e8-c6b5-4656-95ee-ff0f98223447)
+- **UUID:** [80671a93-debc-4a65-abe6-d31e8a060caa](https://dashboard.mythx.io/#/console/analyses/80671a93-debc-4a65-abe6-d31e8a060caa)
 - **Issue:** SWC-134 - Message call with hardcoded gas amount
 - **Severity:** Low
 - **Description:** The highlighted function call forwards a fixed amount of gas. This is discouraged as the gas cost of EVM instructions may change in the future, which could break this contract&#39;s assumptions. If this was done to prevent reentrancy attacks, consider alternative methods such as the checks-effects-interactions pattern or reentrancy locks instead.
@@ -103,7 +103,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
 ##  Report for BondzierFactory.sol
 
-- **UUID:** [26e07aca-9c7e-498a-8e8b-91f022856e65](https://dashboard.mythx.io/#/console/analyses/26e07aca-9c7e-498a-8e8b-91f022856e65)
+- **UUID:** [7d359703-ba6a-4446-bfa2-50c8f7ec3c33](https://dashboard.mythx.io/#/console/analyses/7d359703-ba6a-4446-bfa2-50c8f7ec3c33)
 - **Issue:** SWC-100 - Function Default Visibility
 - **Severity:** Low
 - **Description:** The function definition of &#34;null&#34; lacks a visibility specifier. Note that the compiler assumes &#34;public&#34; visibility by default. Function visibility should always be specified explicitly to assure correctness of the code and improve readability.
@@ -123,17 +123,37 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
 ##  Report for Bondzier1155.sol
 
-- **UUID:** [c05adefa-b6a6-4cc8-958f-fcdfe4c357c4](https://dashboard.mythx.io/#/console/analyses/c05adefa-b6a6-4cc8-958f-fcdfe4c357c4)
+- **UUID:** [ec7b8bab-da44-470d-926d-32624b7e235b](https://dashboard.mythx.io/#/console/analyses/ec7b8bab-da44-470d-926d-32624b7e235b)
+- **Issue:** SWC-123 - Requirement Violation
+- **Severity:** Low
+- **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
+- **Line:** 25
+```
+contract Bondzier1155 is Context, AccessControlEnumerable, ERC1155Burnable, IMinter, IRegister {
+```
+
+
+- **UUID:** [ec7b8bab-da44-470d-926d-32624b7e235b](https://dashboard.mythx.io/#/console/analyses/ec7b8bab-da44-470d-926d-32624b7e235b)
 - **Issue:** SWC-100 - Function Default Visibility
 - **Severity:** Low
 - **Description:** The function definition of &#34;null&#34; lacks a visibility specifier. Note that the compiler assumes &#34;public&#34; visibility by default. Function visibility should always be specified explicitly to assure correctness of the code and improve readability.
-- **Line:** 30
+- **Line:** 32
 ```
     constructor(string memory uri) ERC1155(uri) {
 ```
 
 
 ##  Report for ERC1155/ERC1155.sol
+
+- **UUID:** [ec7b8bab-da44-470d-926d-32624b7e235b](https://dashboard.mythx.io/#/console/analyses/ec7b8bab-da44-470d-926d-32624b7e235b)
+- **Issue:** SWC-123 - Requirement Violation
+- **Severity:** Low
+- **Description:** A requirement was violated in a nested call and the call was reverted as a result. Make sure valid inputs are provided to the nested call (for instance, via passed arguments).
+- **Line:** 413
+```
+            try IERC1155Receiver(to).onERC1155Received(operator, from, id, amount, data) returns (bytes4 response) {
+```
+
 
 ##  Report for ERC1155/IERC1155.sol
 
@@ -159,9 +179,11 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
 ##  Report for ERC1155/utils/Strings.sol
 
+##  Report for IMinter.sol
+
 ##  Report for Bondzier.sol
 
-- **UUID:** [32f00f15-eeca-4a29-b811-51fc8768024c](https://dashboard.mythx.io/#/console/analyses/32f00f15-eeca-4a29-b811-51fc8768024c)
+- **UUID:** [12514302-e168-49b3-a146-5ae2125975ad](https://dashboard.mythx.io/#/console/analyses/12514302-e168-49b3-a146-5ae2125975ad)
 - **Issue:** SWC-116 - Timestamp Dependence
 - **Severity:** Low
 - **Description:** The block.timestamp environment variable is used to determine a control flow decision. Note that the values of variables like coinbase, gaslimit, block number and timestamp are predictable and can be manipulated by a malicious miner. Also keep in mind that attackers know hashes of earlier blocks. Don&#39;t use any of those environment variables as sources of randomness and be aware that use of these variables introduces a certain level of trust into miners.
@@ -170,8 +192,6 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     require (block.timestamp &lt; endTime, &#34;Market closed.&#34;);
 ```
 
-
-##  Report for IMinter.sol
 
 ----------
 Made with ♥ by [MythX CLI](https://github.com/dmuhs/mythx-cli)

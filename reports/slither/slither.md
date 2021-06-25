@@ -1,3 +1,4 @@
+```
 'npx hardhat compile --force' running
 Compiling 28 files with 0.8.4
 Compilation finished successfully
@@ -39,27 +40,12 @@ PRBMathCommon.mulDiv(uint256,uint256,uint256) (contracts/PRBMathCommon.sol#158-2
 	-result = prod0 * inverse (contracts/PRBMathCommon.sol#238)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
 INFO:Detectors:
-Bondzier.priceN(uint256) (contracts/Bondzier.sol#118-124) contains a tautology or contradiction:
-	- require(bool,string)(_n >= 0,n must be equal or greater than zero) (contracts/Bondzier.sol#121)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) contains a tautology or contradiction:
-	- require(bool,string)(_points[3] >= 0 && _points[3] <= _total,point coords not ok) (contracts/Bondzier.sol#221)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) contains a tautology or contradiction:
-	- require(bool,string)(_points[0] >= 0,start price must be greater or equal to zero) (contracts/Bondzier.sol#218)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) contains a tautology or contradiction:
-	- require(bool,string)(_points[2] >= 0 && _points[4] >= 0,point coords not ok) (contracts/Bondzier.sol#222)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) contains a tautology or contradiction:
-	- require(bool,string)(_points[5] >= 0,end price must be greater or equal to zero) (contracts/Bondzier.sol#219)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) contains a tautology or contradiction:
-	- require(bool,string)(_points[1] >= 0 && _points[1] <= _total,point coords not ok) (contracts/Bondzier.sol#220)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#tautology-or-contradiction
-INFO:Detectors:
 ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).reason (contracts/ERC1155/ERC1155.sol#417) is a local variable never initialized
-ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes).response (contracts/ERC1155/ERC1155.sol#436) is a local variable never initialized
 ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).response (contracts/ERC1155/ERC1155.sol#413) is a local variable never initialized
 ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes).reason (contracts/ERC1155/ERC1155.sol#440) is a local variable never initialized
+ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes).response (contracts/ERC1155/ERC1155.sol#436) is a local variable never initialized
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
 INFO:Detectors:
-BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes) (contracts/BondzierFactory.sol#57-81) ignores return value by Clones.cloneDeterministic(bondzierContractAddress,_salt) (contracts/BondzierFactory.sol#77)
 ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes) (contracts/ERC1155/ERC1155.sol#402-423) ignores return value by IERC1155Receiver(to).onERC1155Received(operator,from,id,amount,data) (contracts/ERC1155/ERC1155.sol#413-421)
 ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes) (contracts/ERC1155/ERC1155.sol#425-446) ignores return value by IERC1155Receiver(to).onERC1155BatchReceived(operator,from,ids,amounts,data) (contracts/ERC1155/ERC1155.sol#436-444)
 AccessControlEnumerable.grantRole(bytes32,address) (contracts/ERC1155/utils/AccessControlEnumerable.sol#59-62) ignores return value by _roleMembers[role].add(account) (contracts/ERC1155/utils/AccessControlEnumerable.sol#61)
@@ -68,21 +54,13 @@ AccessControlEnumerable.renounceRole(bytes32,address) (contracts/ERC1155/utils/A
 AccessControlEnumerable._setupRole(bytes32,address) (contracts/ERC1155/utils/AccessControlEnumerable.sol#83-86) ignores return value by _roleMembers[role].add(account) (contracts/ERC1155/utils/AccessControlEnumerable.sol#85)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
 INFO:Detectors:
-Bondzier1155.constructor(string).uri (contracts/Bondzier1155.sol#30) shadows:
+Bondzier1155.constructor(string).uri (contracts/Bondzier1155.sol#32) shadows:
 	- ERC1155.uri(uint256) (contracts/ERC1155/ERC1155.sol#57-59) (function)
 	- IERC1155MetadataURI.uri(uint256) (contracts/ERC1155/extensions/IERC1155MetadataURI.sol#20) (function)
-Bondzier1155.register(string,address,uint128).uri (contracts/Bondzier1155.sol#37) shadows:
+Bondzier1155.register(string,address,uint128).uri (contracts/Bondzier1155.sol#39) shadows:
 	- ERC1155.uri(uint256) (contracts/ERC1155/ERC1155.sol#57-59) (function)
 	- IERC1155MetadataURI.uri(uint256) (contracts/ERC1155/extensions/IERC1155MetadataURI.sol#20) (function)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
-INFO:Detectors:
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._tokenContractAddress (contracts/Bondzier.sol#210) lacks a zero-check on :
-		- tokenContractAddress = _tokenContractAddress (contracts/Bondzier.sol#239)
-BondzierFactory.constructor(address,address)._bondzierContractAddress (contracts/BondzierFactory.sol#34) lacks a zero-check on :
-		- bondzierContractAddress = _bondzierContractAddress (contracts/BondzierFactory.sol#35)
-BondzierFactory.constructor(address,address)._tokenContractAddress (contracts/BondzierFactory.sol#34) lacks a zero-check on :
-		- tokenContractAddress = _tokenContractAddress (contracts/BondzierFactory.sol#36)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
 INFO:Detectors:
 Variable 'ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).response (contracts/ERC1155/ERC1155.sol#413)' in ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes) (contracts/ERC1155/ERC1155.sol#402-423) potentially used before declaration: response != IERC1155Receiver(to).onERC1155Received.selector (contracts/ERC1155/ERC1155.sol#414)
 Variable 'ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).reason (contracts/ERC1155/ERC1155.sol#417)' in ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes) (contracts/ERC1155/ERC1155.sol#402-423) potentially used before declaration: revert(string)(reason) (contracts/ERC1155/ERC1155.sol#418)
@@ -93,9 +71,9 @@ INFO:Detectors:
 Bondzier.buy() (contracts/Bondzier.sol#147-169) uses timestamp for comparisons
 	Dangerous comparisons:
 	- require(bool,string)(block.timestamp < endTime,Market closed.) (contracts/Bondzier.sol#148)
-Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246) uses timestamp for comparisons
+Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-244) uses timestamp for comparisons
 	Dangerous comparisons:
-	- require(bool,string)(_endTime > block.timestamp,Endtime must be set into future.) (contracts/Bondzier.sol#224)
+	- require(bool,string)(_endTime > block.timestamp,Endtime must be set into future.) (contracts/Bondzier.sol#222)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
 INFO:Detectors:
 Clones.clone(address) (contracts/Clones.sol#24-34) uses assembly
@@ -140,7 +118,7 @@ Address.functionStaticCall(address,bytes,string) (contracts/ERC1155/utils/Addres
 Address.sendValue(address,uint256) (contracts/ERC1155/utils/Address.sol#53-59) is never used and should be removed
 Bezier.bezier(uint256[2],uint256[2],uint256[2],uint256[2],uint256) (contracts/Bezier.sol#79-84) is never used and should be removed
 Bezier.bezierX(uint256,uint256,uint256,uint256,uint256) (contracts/Bezier.sol#97-101) is never used and should be removed
-Bondzier1155._beforeTokenTransfer(address,address,address,uint256[],uint256[],bytes) (contracts/Bondzier1155.sol#78-89) is never used and should be removed
+Bondzier1155._beforeTokenTransfer(address,address,address,uint256[],uint256[],bytes) (contracts/Bondzier1155.sol#80-91) is never used and should be removed
 Clones.clone(address) (contracts/Clones.sol#24-34) is never used and should be removed
 Context._msgData() (contracts/ERC1155/utils/Context.sol#20-23) is never used and should be removed
 ERC165Checker._supportsERC165Interface(address,bytes4) (contracts/ERC1155/utils/ERC165Checker.sol#102-107) is never used and should be removed
@@ -230,16 +208,7 @@ Low level call in ERC165Checker._supportsERC165Interface(address,bytes4) (contra
 	- (success,result) = account.staticcall{gas: 30000}(encodedParams) (contracts/ERC1155/utils/ERC165Checker.sol#104)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
 INFO:Detectors:
-Bondzier (contracts/Bondzier.sol#67-249) should inherit from IInit (contracts/IInit.sol#5-7)
-Bondzier1155 (contracts/Bondzier1155.sol#23-90) should inherit from IMinter (contracts/IMinter.sol#5-7)
-Bondzier1155 (contracts/Bondzier1155.sol#23-90) should inherit from IRegister (contracts/IRegister.sol#5-7)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-inheritance
-INFO:Detectors:
-Parameter Bezier.pow(uint256,uint256)._t (contracts/Bezier.sol#65) is not in mixedCase
-Parameter Bezier.pow(uint256,uint256)._e (contracts/Bezier.sol#65) is not in mixedCase
-Parameter Bezier.precalc(uint256)._t (contracts/Bezier.sol#72) is not in mixedCase
-Constant Bezier.three (contracts/Bezier.sol#61) is not in UPPER_CASE_WITH_UNDERSCORES
-Parameter Bondzier.priceN(uint256)._n (contracts/Bondzier.sol#118) is not in mixedCase
+Parameter Bondzier.priceN(uint256)._n (contracts/Bondzier.sol#119) is not in mixedCase
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._nonce (contracts/Bondzier.sol#202) is not in mixedCase
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._isNonFungible (contracts/Bondzier.sol#203) is not in mixedCase
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._amnt (contracts/Bondzier.sol#204) is not in mixedCase
@@ -250,16 +219,16 @@ Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._uri (contracts/Bondzier.sol#209) is not in mixedCase
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._tokenContractAddress (contracts/Bondzier.sol#210) is not in mixedCase
 Parameter Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes)._data (contracts/Bondzier.sol#211) is not in mixedCase
-Variable Bondzier.OwnerAddress (contracts/Bondzier.sol#74) is not in mixedCase
-Parameter BondzierFactory.predictAddress(bytes32)._salt (contracts/BondzierFactory.sol#50) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._isNonFungible (contracts/BondzierFactory.sol#57) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._amnt (contracts/BondzierFactory.sol#58) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._total (contracts/BondzierFactory.sol#59) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._points (contracts/BondzierFactory.sol#60) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._owneraddress (contracts/BondzierFactory.sol#61) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._endTime (contracts/BondzierFactory.sol#62) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._uri (contracts/BondzierFactory.sol#63) is not in mixedCase
-Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._salt (contracts/BondzierFactory.sol#64) is not in mixedCase
+Variable Bondzier.OwnerAddress (contracts/Bondzier.sol#75) is not in mixedCase
+Parameter BondzierFactory.predictAddress(bytes32)._salt (contracts/BondzierFactory.sol#53) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._isNonFungible (contracts/BondzierFactory.sol#60) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._amnt (contracts/BondzierFactory.sol#61) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._total (contracts/BondzierFactory.sol#62) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._points (contracts/BondzierFactory.sol#63) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._owneraddress (contracts/BondzierFactory.sol#64) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._endTime (contracts/BondzierFactory.sol#65) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._uri (contracts/BondzierFactory.sol#66) is not in mixedCase
+Parameter BondzierFactory.createBondzier(bool,uint256,uint256,uint256[6],address,uint256,string,bytes32,bytes)._salt (contracts/BondzierFactory.sol#67) is not in mixedCase
 Constant Strings.alphabet (contracts/ERC1155/utils/Strings.sol#9) is not in UPPER_CASE_WITH_UNDERSCORES
 Constant PRBMathUD60x18.MAX_UD60x18 (contracts/PRBMathUD60x18.sol#20) is not in UPPER_CASE_WITH_UNDERSCORES
 Constant PRBMathUD60x18.MAX_WHOLE_UD60x18 (contracts/PRBMathUD60x18.sol#23) is not in UPPER_CASE_WITH_UNDERSCORES
@@ -656,18 +625,6 @@ PRBMathUD60x18.slitherConstructorConstantVariables() (contracts/PRBMathUD60x18.s
 	- MAX_WHOLE_UD60x18 = 115792089237316195423570985008687907853269984665640564039457000000000000000000 (contracts/PRBMathUD60x18.sol#23)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits
 INFO:Detectors:
-available() should be declared external:
-	- Bondzier.available() (contracts/Bondzier.sol#111-114)
-priceN(uint256) should be declared external:
-	- Bondzier.priceN(uint256) (contracts/Bondzier.sol#118-124)
-init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) should be declared external:
-	- Bondzier.init(uint128,bool,uint256,uint256,uint256[6],address,uint256,string,address,bytes) (contracts/Bondzier.sol#202-246)
-register(string,address,uint128) should be declared external:
-	- Bondzier1155.register(string,address,uint128) (contracts/Bondzier1155.sol#37-42)
-mint(address,uint256,uint256,bytes) should be declared external:
-	- Bondzier1155.mint(address,uint256,uint256,bytes) (contracts/Bondzier1155.sol#54-58)
-mintBatch(address,uint256[],uint256[],bytes) should be declared external:
-	- Bondzier1155.mintBatch(address,uint256[],uint256[],bytes) (contracts/Bondzier1155.sol#63-67)
 uri(uint256) should be declared external:
 	- ERC1155.uri(uint256) (contracts/ERC1155/ERC1155.sol#57-59)
 balanceOfBatch(address[],uint256[]) should be declared external:
@@ -691,5 +648,7 @@ onERC1155Received(address,address,uint256,uint256,bytes) should be declared exte
 onERC1155BatchReceived(address,address,uint256[],uint256[],bytes) should be declared external:
 	- ERC1155Holder.onERC1155BatchReceived(address,address,uint256[],uint256[],bytes) (contracts/ERC1155/utils/ERC1155Holder.sol#15-17)
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
-INFO:Slither:. analyzed (30 contracts with 75 detectors), 380 result(s) found
+INFO:Slither:. analyzed (30 contracts with 75 detectors), 357 result(s) found
 INFO:Slither:Use https://crytic.io/ to get access to additional detectors and Github integration
+
+```
